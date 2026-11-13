@@ -1,755 +1,415 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Baker's Point - Cake Delivery Calculator</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Baker's Point Cake Delivery</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
+<style>
+* { box-sizing:border-box; font-family:Arial,sans-serif; }
 
-    body {
-      margin: 0;
-      background: #f7f7f7;
-      color: #222;
-    }
+body {
+  background:#f5f5f5;
+  padding:15px;
+  margin:0;
+}
 
-    .container {
-      max-width: 500px;
-      margin: 30px auto;
-      padding: 20px;
-    }
+.container {
+  max-width:480px;
+  margin:20px auto;
+  background:white;
+  padding:25px;
+  border-radius:18px;
+  box-shadow:0 5px 25px #0001;
+}
 
-    .card {
-      background: #fff;
-      border-radius: 18px;
-      padding: 25px;
-      box-shadow: 0 5px 25px rgba(0,0,0,0.10);
-    }
+h1 {
+  text-align:center;
+  font-size:27px;
+  margin-bottom:5px;
+}
 
-    .logo {
-      text-align: center;
-      font-size: 28px;
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
+.sub {
+  text-align:center;
+  color:#777;
+  margin-bottom:25px;
+}
 
-    .subtitle {
-      text-align: center;
-      color: #666;
-      margin-bottom: 25px;
-    }
+h3 { margin-bottom:10px; }
 
-    label {
-      display: block;
-      font-weight: bold;
-      margin: 15px 0 7px;
-    }
+label {
+  display:block;
+  font-weight:bold;
+  margin:15px 0 7px;
+  font-size:14px;
+}
 
-    input, select, textarea {
-      width: 100%;
-      padding: 13px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      font-size: 16px;
-    }
+input,textarea {
+  width:100%;
+  padding:13px;
+  border:1px solid #ddd;
+  border-radius:9px;
+  font-size:16px;
+}
 
-    textarea {
-      min-height: 80px;
-      resize: vertical;
-    }
+.maps {
+  display:block;
+  margin:8px 0 15px;
+  color:#1769aa;
+  font-size:13px;
+}
 
-    .calculate-btn,
-    .whatsapp-btn {
-      width: 100%;
-      border: none;
-      padding: 15px;
-      border-radius: 10px;
-      font-size: 17px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 20px;
-    }
+button {
+  width:100%;
+  padding:15px;
+  border:0;
+  border-radius:9px;
+  font-weight:bold;
+  font-size:16px;
+  cursor:pointer;
+}
 
-    .calculate-btn {
-      background: #222;
-      color: white;
-    }
+.calculate {
+  background:#151515;
+  color:white;
+  margin-top:20px;
+}
 
-    .whatsapp-btn {
-      background: #25D366;
-      color: white;
-      display: none;
-    }
+.result {
+  display:none;
+  background:#f5f5f5;
+  padding:18px;
+  margin-top:20px;
+  border-radius:12px;
+}
 
-    .result {
-      margin-top: 25px;
-      padding: 20px;
-      border-radius: 14px;
-      background: #f2f2f2;
-      display: none;
-    }
+.line {
+  display:flex;
+  justify-content:space-between;
+  margin:13px 0;
+  gap:10px;
+}
 
-    .result-row {
-      display: flex;
-      justify-content: space-between;
-      margin: 10px 0;
-      font-size: 17px;
-    }
+.total {
+  border-top:1px solid #ccc;
+  padding-top:15px;
+  font-size:21px;
+  font-weight:bold;
+}
 
-    .total {
-      font-size: 25px;
-      font-weight: bold;
-      border-top: 1px solid #ccc;
-      padding-top: 15px;
-      margin-top: 15px;
-    }
+.charge {
+  font-size:32px;
+  font-weight:800;
+  color:#168044;
+}
 
-    .notice {
-      margin-top: 20px;
-      padding: 14px;
-      background: #fff4d6;
-      border-radius: 10px;
-      font-size: 14px;
-      line-height: 1.5;
-    }
+.notice {
+  background:#fff3cd;
+  color:#755800;
+  padding:13px;
+  border-radius:9px;
+  margin-top:15px;
+  font-size:13px;
+  line-height:1.6;
+}
 
-    .success {
-      margin-top: 15px;
-      padding: 12px;
-      background: #e8f8ee;
-      border-radius: 10px;
-      font-size: 14px;
-    }
-  </style>
+.whatsapp {
+  background:#25D366;
+  color:white;
+  margin-top:18px;
+}
+
+.error {
+  color:#d22;
+  font-size:13px;
+  display:none;
+  margin-top:10px;
+}
+
+.footer {
+  text-align:center;
+  color:#777;
+  font-size:12px;
+  margin-top:25px;
+  line-height:1.6;
+}
+</style>
 </head>
 
 <body>
 
 <div class="container">
 
-  <div class="card">
+<h1>BAKER'S POINT</h1>
+<div class="sub">CAKE DELIVERY PARTNER</div>
 
-    <div class="logo">
-      🎂 BAKER'S POINT
-    </div>
+<h3>🎂 You Bake. We Deliver.</h3>
 
-    <div class="subtitle">
-      Cake Delivery Partner for Home Bakers
-    </div>
+<label>Baker's Name</label>
+<input id="name" placeholder="Enter your name">
 
-    <label for="name">Baker's Name</label>
-    <input type="text" id="name" placeholder="Enter your name">
+<label>Baker's Phone Number</label>
+<input id="phone" type="tel" placeholder="Enter phone number">
 
-    <label for="phone">Phone Number</label>
-    <input type="tel" id="phone" placeholder="Enter phone number">
+<hr style="border:0;border-top:1px solid #eee;margin:22px 0">
 
-    <label for="distance">Delivery Distance (KM)</label>
-    <input
-      type="number"
-      id="distance"
-      placeholder="Example: 8.5"
-      min="0"
-      step="0.1"
-      oninput="calculateDelivery()"
-    >
+<h3>📍 Journey 1: Pickup Distance</h3>
+<label>Baker's Point → Home Baker (KM)</label>
+<input id="pickup" type="number" min="0" step="0.1"
+placeholder="Enter pickup distance"
+oninput="calculate()">
 
-    <label for="deliveryDate">Delivery Date</label>
-    <input type="date" id="deliveryDate">
+<a class="maps" href="https://www.google.com/maps/dir/"
+target="_blank">
+↗ Check pickup route on Google Maps
+</a>
 
-    <label for="deliveryTime">Preferred Delivery Time</label>
-    <input type="time" id="deliveryTime">
+<h3>📍 Journey 2: Drop Distance</h3>
+<label>Home Baker → Customer (KM)</label>
+<input id="drop" type="number" min="0" step="0.1"
+placeholder="Enter drop distance"
+oninput="calculate()">
 
-    <label for="customer">Customer Name</label>
-    <input type="text" id="customer" placeholder="Cake customer's name">
+<a class="maps" href="https://www.google.com/maps/dir/"
+target="_blank">
+↗ Check drop route on Google Maps
+</a>
 
-    <label for="customerPhone">Customer Phone</label>
-    <input type="tel" id="customerPhone" placeholder="Customer contact number">
+<hr style="border:0;border-top:1px solid #eee;margin:20px 0">
 
-    <label for="address">Customer Delivery Address</label>
-    <textarea id="address" placeholder="Enter complete delivery address"></textarea>
+<h3>📦 Customer Details</h3>
 
-    <label for="cakeDetails">Cake / Order Details</label>
-    <textarea id="cakeDetails" placeholder="Example: 1 kg birthday cake"></textarea>
+<label>Customer Name</label>
+<input id="customer" placeholder="Customer name">
 
-    <button class="calculate-btn" onclick="calculateDelivery()">
-      CALCULATE DELIVERY CHARGE
-    </button>
+<label>Customer Phone</label>
+<input id="customerPhone" type="tel"
+placeholder="Customer contact number">
 
-    <div class="result" id="result">
+<label>Delivery Address</label>
+<textarea id="address" rows="3"
+placeholder="Enter complete address"></textarea>
 
-      <div class="result-row">
-        <span>Delivery Distance</span>
-        <strong id="showDistance">0 KM</strong>
-      </div>
+<label>Delivery Date</label>
+<input id="date" type="date">
 
-      <div class="result-row">
-        <span>First 5 KM</span>
-        <strong>₹50</strong>
-      </div>
+<label>Delivery Time</label>
+<input id="time" type="time">
 
-      <div class="result-row">
-        <span>Extra KM Charge</span>
-        <strong id="extraCharge">₹0</strong>
-      </div>
+<button class="calculate" onclick="calculate()">
+CALCULATE DELIVERY CHARGE
+</button>
 
-      <div class="result-row total">
-        <span>Delivery Charge</span>
-        <strong id="totalCharge">₹50</strong>
-      </div>
+<div class="error" id="error"></div>
 
-      <div class="success">
-        ✅ 24 HOURS ADVANCE BOOKING REQUIRED
-      </div>
+<div class="result" id="result">
 
-    </div>
+<h3>Delivery Cost Breakdown</h3>
 
-    <div class="notice">
-      <strong>Important:</strong><br>
-      • Delivery must be booked at least 24 hours in advance.<br>
-      • Urgent / last-minute delivery is not available.<br>
-      • Delivery service is for home bakers who purchase raw materials from Baker's Point.
-    </div>
+<div class="line">
+<span>Pickup Distance</span>
+<strong id="pShow">0 KM</strong>
+</div>
 
-    <button class="whatsapp-btn" id="whatsappBtn" onclick="sendWhatsApp()">
-      📲 BOOK DELIVERY ON WHATSAPP
-    </button>
+<div class="line">
+<span>Drop Distance</span>
+<strong id="dShow">0 KM</strong>
+</div>
 
-  </div>
+<div class="line">
+<span>Total Distance</span>
+<strong id="totalKm">0 KM</strong>
+</div>
+
+<div class="line">
+<span>First 5 KM</span>
+<strong>₹50</strong>
+</div>
+
+<div class="line">
+<span>Extra Distance</span>
+<strong id="extra">0 KM</strong>
+</div>
+
+<div class="line">
+<span>Extra Charge</span>
+<strong id="extraCharge">₹0</strong>
+</div>
+
+<div class="line total">
+<span>Total Delivery Charge</span>
+</div>
+
+<div class="charge" id="amount">₹50</div>
+
+<div class="notice">
+⏰ <b>24 HOURS ADVANCE BOOKING REQUIRED</b><br>
+🚫 Urgent / last-minute delivery is not available.<br>
+Booking is subject to Baker's Point confirmation.
+</div>
+
+<button class="whatsapp" onclick="bookWhatsApp()">
+📲 BOOK DELIVERY ON WHATSAPP
+</button>
 
 </div>
 
-
-<script>
-
-  // ==========================================
-  // BAKER'S POINT DELIVERY RATE
-  // ₹50 FIRST 5 KM
-  // ₹6 FOR EVERY KM AFTER 5 KM
-  // ==========================================
-
-  function calculateDelivery() {
-
-    let distance = parseFloat(
-      document.getElementById("distance").value
-    );
-
-    if (isNaN(distance) || distance < 0) {
-      document.getElementById("result").style.display = "none";
-      document.getElementById("whatsappBtn").style.display = "none";
-      return;
-    }
-
-    let deliveryCharge = 50;
-    let extraCharge = 0;
-
-    // First 5 KM = ₹50
-    if (distance > 5) {
-
-      let extraKm = distance - 5;
-
-      extraCharge = extraKm * 6;
-
-      deliveryCharge = 50 + extraCharge;
-    }
-
-    // Round to 2 decimal places
-    deliveryCharge = Math.round(deliveryCharge * 100) / 100;
-    extraCharge = Math.round(extraCharge * 100) / 100;
-
-    document.getElementById("showDistance").innerText =
-      distance.toFixed(1) + " KM";
-
-    document.getElementById("extraCharge").innerText =
-      "₹" + extraCharge.toFixed(2);
-
-    document.getElementById("totalCharge").innerText =
-      "₹" + deliveryCharge.toFixed(2);
-
-    document.getElementById("result").style.display = "block";
-    document.getElementById("whatsappBtn").style.display = "block";
-  }
-
-
-  // ==========================================
-  // WHATSAPP BOOKING
-  // CHANGE THIS NUMBER TO BAKER'S POINT NUMBER
-  // ==========================================
-
-  function sendWhatsApp() {
-
-    let name =
-      document.getElementById("name").value;
-
-    let phone =
-      document.getElementById("phone").value;
-
-    let distance =
-      document.getElementById("distance").value;
-
-    let deliveryDate =
-      document.getElementById("deliveryDate").value;
-
-    let deliveryTime =
-      document.getElementById("deliveryTime").value;
-
-    let customer =
-      document.getElementById("customer").value;
-
-    let customerPhone =
-      document.getElementById("customerPhone").value;
-
-    let address =
-      document.getElementById("address").value;
-
-    let cakeDetails =
-      document.getElementById("cakeDetails").value;
-
-
-    if (!name || !phone || !distance || !deliveryDate ||
-        !deliveryTime || !customer || !customerPhone ||
-        !address) {
-
-      alert("Please fill in all required details.");
-      return;
-    }
-
-
-    // Calculate charge again
-    let km = parseFloat(distance);
-    let charge = 50;
-
-    if (km > 5) {
-      charge = 50 + ((km - 5) * 6);
-    }
-
-    charge = Math.round(charge * 100) / 100;
-
-
-    // ==========================================
-    // CHANGE THIS TO YOUR BAKER'S POINT NUMBER
-    // ==========================================
-
-    let bakerPointWhatsApp = "917548959155";
-
-
-    let message =
-`🎂 BAKER'S POINT - CAKE DELIVERY BOOKING
-
-Baker's Name: ${name}
-Baker's Phone: ${phone}
-
-📍 Delivery Distance: ${km} KM
-💰 Delivery Charge: ₹${charge.toFixed(2)}
-
-📅 Delivery Date: ${deliveryDate}
-⏰ Delivery Time: ${deliveryTime}
-
-👤 Customer Name: ${customer}
-📞 Customer Phone: ${customerPhone}
-
-🏠 Delivery Address:
-${address}
-
-🎂 Cake / Order Details:
-${cakeDetails || "Not provided"}
-
-✅ 24 Hours Advance Booking Confirmed
-
-I would like to book cake delivery through Baker's Point.`;
-
-
-    let whatsappURL =
-      "https://wa.me/" +
-      bakerPointWhatsApp +
-      "?text=" +
-      encodeURIComponent(message);
-
-
-    window.open(whatsappURL, "_blank");
-
-  }
-
-</script>
-
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Baker's Point - Cake Delivery Calculator</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
-
-    body {
-      margin: 0;
-      background: #f7f7f7;
-      color: #222;
-    }
-
-    .container {
-      max-width: 500px;
-      margin: 30px auto;
-      padding: 20px;
-    }
-
-    .card {
-      background: #fff;
-      border-radius: 18px;
-      padding: 25px;
-      box-shadow: 0 5px 25px rgba(0,0,0,0.10);
-    }
-
-    .logo {
-      text-align: center;
-      font-size: 28px;
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-
-    .subtitle {
-      text-align: center;
-      color: #666;
-      margin-bottom: 25px;
-    }
-
-    label {
-      display: block;
-      font-weight: bold;
-      margin: 15px 0 7px;
-    }
-
-    input, select, textarea {
-      width: 100%;
-      padding: 13px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      font-size: 16px;
-    }
-
-    textarea {
-      min-height: 80px;
-      resize: vertical;
-    }
-
-    .calculate-btn,
-    .whatsapp-btn {
-      width: 100%;
-      border: none;
-      padding: 15px;
-      border-radius: 10px;
-      font-size: 17px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-
-    .calculate-btn {
-      background: #222;
-      color: white;
-    }
-
-    .whatsapp-btn {
-      background: #25D366;
-      color: white;
-      display: none;
-    }
-
-    .result {
-      margin-top: 25px;
-      padding: 20px;
-      border-radius: 14px;
-      background: #f2f2f2;
-      display: none;
-    }
-
-    .result-row {
-      display: flex;
-      justify-content: space-between;
-      margin: 10px 0;
-      font-size: 17px;
-    }
-
-    .total {
-      font-size: 25px;
-      font-weight: bold;
-      border-top: 1px solid #ccc;
-      padding-top: 15px;
-      margin-top: 15px;
-    }
-
-    .notice {
-      margin-top: 20px;
-      padding: 14px;
-      background: #fff4d6;
-      border-radius: 10px;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    .success {
-      margin-top: 15px;
-      padding: 12px;
-      background: #e8f8ee;
-      border-radius: 10px;
-      font-size: 14px;
-    }
-  </style>
-</head>
-
-<body>
-
-<div class="container">
-
-  <div class="card">
-
-    <div class="logo">
-      🎂 BAKER'S POINT
-    </div>
-
-    <div class="subtitle">
-      Cake Delivery Partner for Home Bakers
-    </div>
-
-    <label for="name">Baker's Name</label>
-    <input type="text" id="name" placeholder="Enter your name">
-
-    <label for="phone">Phone Number</label>
-    <input type="tel" id="phone" placeholder="Enter phone number">
-
-    <label for="distance">Delivery Distance (KM)</label>
-    <input
-      type="number"
-      id="distance"
-      placeholder="Example: 8.5"
-      min="0"
-      step="0.1"
-      oninput="calculateDelivery()"
-    >
-
-    <label for="deliveryDate">Delivery Date</label>
-    <input type="date" id="deliveryDate">
-
-    <label for="deliveryTime">Preferred Delivery Time</label>
-    <input type="time" id="deliveryTime">
-
-    <label for="customer">Customer Name</label>
-    <input type="text" id="customer" placeholder="Cake customer's name">
-
-    <label for="customerPhone">Customer Phone</label>
-    <input type="tel" id="customerPhone" placeholder="Customer contact number">
-
-    <label for="address">Customer Delivery Address</label>
-    <textarea id="address" placeholder="Enter complete delivery address"></textarea>
-
-    <label for="cakeDetails">Cake / Order Details</label>
-    <textarea id="cakeDetails" placeholder="Example: 1 kg birthday cake"></textarea>
-
-    <button class="calculate-btn" onclick="calculateDelivery()">
-      CALCULATE DELIVERY CHARGE
-    </button>
-
-    <div class="result" id="result">
-
-      <div class="result-row">
-        <span>Delivery Distance</span>
-        <strong id="showDistance">0 KM</strong>
-      </div>
-
-      <div class="result-row">
-        <span>First 5 KM</span>
-        <strong>₹50</strong>
-      </div>
-
-      <div class="result-row">
-        <span>Extra KM Charge</span>
-        <strong id="extraCharge">₹0</strong>
-      </div>
-
-      <div class="result-row total">
-        <span>Delivery Charge</span>
-        <strong id="totalCharge">₹50</strong>
-      </div>
-
-      <div class="success">
-        ✅ 24 HOURS ADVANCE BOOKING REQUIRED
-      </div>
-
-    </div>
-
-    <div class="notice">
-      <strong>Important:</strong><br>
-      • Delivery must be booked at least 24 hours in advance.<br>
-      • Urgent / last-minute delivery is not available.<br>
-      • Delivery service is for home bakers who purchase raw materials from Baker's Point.
-    </div>
-
-    <button class="whatsapp-btn" id="whatsappBtn" onclick="sendWhatsApp()">
-      📲 BOOK DELIVERY ON WHATSAPP
-    </button>
-
-  </div>
+<div class="footer">
+Baker's Point Wholesale & Retail<br>
+You Bake Perfect Cakes. We Take Care of Delivery.<br>
+Delivery Partner for Home Bakers
+</div>
 
 </div>
 
-
 <script>
 
-  // ==========================================
-  // BAKER'S POINT DELIVERY RATE
-  // ₹50 FIRST 5 KM
-  // ₹6 FOR EVERY KM AFTER 5 KM
-  // ==========================================
+// BAKER'S POINT PRICING
+const BASE_CHARGE = 50;
+const BASE_KM = 5;
+const EXTRA_RATE = 6;
 
-  function calculateDelivery() {
+// Your WhatsApp number with country code
+const WHATSAPP_NUMBER = "917548959155";
 
-    let distance = parseFloat(
-      document.getElementById("distance").value
-    );
+let currentCharge = 50;
+let currentTotal = 0;
 
-    if (isNaN(distance) || distance < 0) {
-      document.getElementById("result").style.display = "none";
-      document.getElementById("whatsappBtn").style.display = "none";
-      return;
-    }
+function calculate() {
 
-    let deliveryCharge = 50;
-    let extraCharge = 0;
+  const p = document.getElementById("pickup").value;
+  const d = document.getElementById("drop").value;
 
-    // First 5 KM = ₹50
-    if (distance > 5) {
+  const error = document.getElementById("error");
+  const result = document.getElementById("result");
 
-      let extraKm = distance - 5;
+  error.style.display = "none";
+  result.style.display = "none";
 
-      extraCharge = extraKm * 6;
-
-      deliveryCharge = 50 + extraCharge;
-    }
-
-    // Round to 2 decimal places
-    deliveryCharge = Math.round(deliveryCharge * 100) / 100;
-    extraCharge = Math.round(extraCharge * 100) / 100;
-
-    document.getElementById("showDistance").innerText =
-      distance.toFixed(1) + " KM";
-
-    document.getElementById("extraCharge").innerText =
-      "₹" + extraCharge.toFixed(2);
-
-    document.getElementById("totalCharge").innerText =
-      "₹" + deliveryCharge.toFixed(2);
-
-    document.getElementById("result").style.display = "block";
-    document.getElementById("whatsappBtn").style.display = "block";
+  if (p === "" || d === "" ||
+      !Number.isFinite(Number(p)) ||
+      !Number.isFinite(Number(d)) ||
+      Number(p) < 0 || Number(d) < 0) {
+    error.innerText = "Please enter both valid distances.";
+    error.style.display = "block";
+    return;
   }
 
+  const pickup = Number(p);
+  const drop = Number(d);
 
-  // ==========================================
-  // WHATSAPP BOOKING
-  // CHANGE THIS NUMBER TO BAKER'S POINT NUMBER
-  // ==========================================
+  const total = pickup + drop;
 
-  function sendWhatsApp() {
+  const extra = Math.max(0, total - BASE_KM);
 
-    let name =
-      document.getElementById("name").value;
+  const extraCharge = extra * EXTRA_RATE;
 
-    let phone =
-      document.getElementById("phone").value;
+  const charge = BASE_CHARGE + extraCharge;
 
-    let distance =
-      document.getElementById("distance").value;
+  currentTotal = total;
+  currentCharge = Math.round(charge * 100) / 100;
 
-    let deliveryDate =
-      document.getElementById("deliveryDate").value;
+  document.getElementById("pShow").innerText =
+    pickup.toFixed(1) + " KM";
 
-    let deliveryTime =
-      document.getElementById("deliveryTime").value;
+  document.getElementById("dShow").innerText =
+    drop.toFixed(1) + " KM";
 
-    let customer =
-      document.getElementById("customer").value;
+  document.getElementById("totalKm").innerText =
+    total.toFixed(1) + " KM";
 
-    let customerPhone =
-      document.getElementById("customerPhone").value;
+  document.getElementById("extra").innerText =
+    extra.toFixed(1) + " KM";
 
-    let address =
-      document.getElementById("address").value;
+  document.getElementById("extraCharge").innerText =
+    "₹" + extraCharge.toFixed(2);
 
-    let cakeDetails =
-      document.getElementById("cakeDetails").value;
+  document.getElementById("amount").innerText =
+    "₹" + currentCharge.toFixed(2);
 
+  result.style.display = "block";
+}
 
-    if (!name || !phone || !distance || !deliveryDate ||
-        !deliveryTime || !customer || !customerPhone ||
-        !address) {
+// CHECK 24-HOUR ADVANCE BOOKING
+function isValidBooking() {
 
-      alert("Please fill in all required details.");
-      return;
-    }
+  const date = document.getElementById("date").value;
+  const time = document.getElementById("time").value;
 
-
-    // Calculate charge again
-    let km = parseFloat(distance);
-    let charge = 50;
-
-    if (km > 5) {
-      charge = 50 + ((km - 5) * 6);
-    }
-
-    charge = Math.round(charge * 100) / 100;
-
-
-    // ==========================================
-    // CHANGE THIS TO YOUR BAKER'S POINT NUMBER
-    // ==========================================
-
-    let bakerPointWhatsApp = "917548959155";
-
-
-    let message =
-`🎂 BAKER'S POINT - CAKE DELIVERY BOOKING
-
-Baker's Name: ${name}
-Baker's Phone: ${phone}
-
-📍 Delivery Distance: ${km} KM
-💰 Delivery Charge: ₹${charge.toFixed(2)}
-
-📅 Delivery Date: ${deliveryDate}
-⏰ Delivery Time: ${deliveryTime}
-
-👤 Customer Name: ${customer}
-📞 Customer Phone: ${customerPhone}
-
-🏠 Delivery Address:
-${address}
-
-🎂 Cake / Order Details:
-${cakeDetails || "Not provided"}
-
-✅ 24 Hours Advance Booking Confirmed
-
-I would like to book cake delivery through Baker's Point.`;
-
-
-    let whatsappURL =
-      "https://wa.me/" +
-      bakerPointWhatsApp +
-      "?text=" +
-      encodeURIComponent(message);
-
-
-    window.open(whatsappURL, "_blank");
-
+  if (!date || !time) {
+    alert("Please select delivery date and time.");
+    return false;
   }
+
+  const delivery = new Date(date + "T" + time);
+  const minimum = new Date(Date.now() + 24 * 60 * 60 * 1000);
+
+  if (isNaN(delivery.getTime()) || delivery < minimum) {
+    alert("Please book at least 24 hours in advance. Urgent delivery is unavailable.");
+    return false;
+  }
+
+  return true;
+}
+
+// WHATSAPP BOOKING
+function bookWhatsApp() {
+
+  if (!isValidBooking()) return;
+
+  const fields = {
+    name: document.getElementById("name").value,
+    phone: document.getElementById("phone").value,
+    customer: document.getElementById("customer").value,
+    customerPhone: document.getElementById("customerPhone").value,
+    address: document.getElementById("address").value,
+    date: document.getElementById("date").value,
+    time: document.getElementById("time").value
+  };
+
+  if (!fields.name || !fields.phone ||
+      !fields.customer || !fields.address) {
+    alert("Please complete all customer and baker details.");
+    return;
+  }
+
+  const message = `
+🎂 *BAKER'S POINT CAKE DELIVERY BOOKING*
+
+👤 Baker: ${fields.name}
+📞 Baker Phone: ${fields.phone}
+
+📍 Pickup Distance: ${document.getElementById("pickup").value} KM
+📍 Drop Distance: ${document.getElementById("drop").value} KM
+
+🛣 Total Distance: ${currentTotal.toFixed(1)} KM
+
+💰 Delivery Charge: ₹${currentCharge.toFixed(2)}
+
+👥 Customer: ${fields.customer}
+📞 Customer Phone: ${fields.customerPhone}
+🏠 Address: ${fields.address}
+
+📅 Delivery Date: ${fields.date}
+⏰ Delivery Time: ${fields.time}
+
+⏰ 24 HOURS ADVANCE BOOKING
+🚫 No urgent delivery.
+
+Please confirm my delivery booking.
+`;
+
+  const url = "https://wa.me/" +
+    WHATSAPP_NUMBER +
+    "?text=" + encodeURIComponent(message);
+
+  window.open(url, "_blank");
+}
+
+// SET MINIMUM DATE
+document.getElementById("date").min =
+  new Date(Date.now() + 86400000).toLocaleDateString("en-CA");
 
 </script>
 
